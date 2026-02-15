@@ -58,7 +58,6 @@ export default function Show() {
 
                 </> :
                     data.filter((td) => {
-                        debugger
                         return td.status === "active" && td.imageUrl !== null && td.attacksCount === (data.sort((a, b) => b.attacksCount - a.attacksCount)[0].attacksCount)
                     })
                         .map((td) => {
