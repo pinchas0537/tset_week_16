@@ -23,7 +23,7 @@ export default function Show() {
                         <option value="active">Active</option>
                         <option value="quiet">Quiet</option>
                         <option value="dead">Dead</option>
-                        <option value="israeli Agent">Israeli Agent</option>
+                        <option value="agent">Israeli Agent</option>
                     </select>
                 </label>
                 <button onClick={() => {
@@ -34,17 +34,17 @@ export default function Show() {
             <table>
                 <tbody>
                     <tr>
-                    <th>Name</th>
-                    <th>Organization</th>
-                    <th>attacksCount</th>
-                    <th>status</th>
-                    <th>relationToIsraelSummary</th>
-                    <th>image</th>
+                        <th>Name</th>
+                        <th>Organization</th>
+                        <th>attacksCount</th>
+                        <th>status</th>
+                        <th>relationToIsraelSummary</th>
+                        <th>image</th>
                     </tr>
                 </tbody>
                 {!click ? <>
                     {data.filter((user) => {
-                        return user.name.toLowerCase().includes(input) || user.attacksCount.toString().includes(input) || user.status.includes(input)
+                        return user.name.toLowerCase().includes(input) || user.attacksCount.toString() === input || user.status.includes(input)
                     }).map((terrorist) => {
                         return <tr className='tr'>
                             <td>{terrorist.name}</td>
@@ -58,8 +58,10 @@ export default function Show() {
 
                 </> :
                     data.filter((td) => {
-                        return td.status === "active" && td.imageUrl !== null })
-                        .map((td)=>{
+                        debugger
+                        return td.status === "active" && td.imageUrl !== null && td.attacksCount === (data.sort((a, b) => b.attacksCount - a.attacksCount)[0].attacksCount)
+                    })
+                        .map((td) => {
                             return <tr className='tr'>
                                 <td>{td.name}</td>
                                 <td>{td.organization}</td>
@@ -69,7 +71,7 @@ export default function Show() {
                                 <td><img src={td.imageUrl}></img></td>
                             </tr>
                         })
-                    }
+                }
             </table>
         </div>
     )
